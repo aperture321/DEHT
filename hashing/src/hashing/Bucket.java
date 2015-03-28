@@ -278,7 +278,6 @@ public class Bucket {
 		
 		//This is a 50% split, the index pointers are reassigned to the correct bucket.
 		//That i is times some offset for the index.
-		System.out.println();
 		for(int i = amount_of_points/2; i < amount_of_points; i++) { //set each index pointing to the new bucket address.
 			index.setBucketAddr(this.indexFather+i, newbuck.bucketAddr);
 		}
