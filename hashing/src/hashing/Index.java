@@ -113,17 +113,14 @@ public class Index {
 			return;
 		}
 		//find which bucket we need.
+		
 		int in = findIndex(key);
 		Bucket buck=loadBucket(in);
 		buck.insert(key);
-		
-		//don't forget to write the data after.
-		storeBucket(buck);
-
 	}
 	
 	/**
-	 * Saves a bucket.
+	 * Saves a bucket. Should only be used by the initializer, maybe for delete functionality as well.
 	 * @param buck the bucket to save
 	 * @throws IOException
 	 */
@@ -164,7 +161,7 @@ public class Index {
 
 		long bucketAddr=bucketAddrs[indexPos];
 		
-		Bucket buck=new Bucket(this,maxBucketKeys,bucketAddr); //if you come into insert, new bucket is made already... from debugging.
+		Bucket buck=new Bucket(this,maxBucketKeys,bucketAddr,indexPos); //if you come into insert, new bucket is made already... from debugging.
 		buck.loadData(dataFile);
 		
 		return buck;
@@ -277,7 +274,7 @@ public boolean collapse(){
 	//issues: does not redistribute the list of keys.
 	public static void plannedTest()
 		throws IOException{
-		int dataSet[]={0,7,15,31,3,2,4,8,16}; //remove 63 before 3
+		int dataSet[]={0,7,15,31,3,2,4,8,16,5,13}; //remove 63 before 3
 		Index db=new Index("index","data",4);
 		for(int i=0;i<dataSet.length;i++){
 			System.out.println("\nInserting "+dataSet[i]);
