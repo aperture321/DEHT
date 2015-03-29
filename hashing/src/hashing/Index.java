@@ -4,8 +4,6 @@ package hashing;
 //Dr. Guo
 //COT 3400
 
-import java.util.*;
-import java.lang.*;
 import java.io.*;
 
 /**
