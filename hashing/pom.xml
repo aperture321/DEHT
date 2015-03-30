@@ -3,8 +3,6 @@
   <groupId>hashing</groupId>
   <artifactId>hashing</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Maven Hash</name>
-  <description>Maven Project</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -20,14 +18,14 @@
   </build>
   <dependencies>
   	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.11</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.easymock</groupId>
   		<artifactId>easymock</artifactId>
   		<version>3.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.googlecode.easymockrule</groupId>
+  		<artifactId>EasyMockRule</artifactId>
+  		<version>0.2</version>
   	</dependency>
   </dependencies>
 </project>
