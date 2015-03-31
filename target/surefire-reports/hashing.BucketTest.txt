@@ -1,0 +1,25 @@
+-------------------------------------------------------------------------------
+Test set: hashing.BucketTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.102 sec <<< FAILURE! - in hashing.BucketTest
+testGetDepth(hashing.BucketTest)  Time elapsed: 0.016 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.BucketTest.testGetDepth(BucketTest.java:46)
+
+testContains(hashing.BucketTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.BucketTest.testContains(BucketTest.java:36)
+
+testDelete(hashing.BucketTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.BucketTest.testDelete(BucketTest.java:31)
+
+testInsert(hashing.BucketTest)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.NullPointerException: null
+	at hashing.Bucket.insert(Bucket.java:119)
+	at hashing.BucketTest.testInsert(BucketTest.java:25)
+
+testSearch(hashing.BucketTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.BucketTest.testSearch(BucketTest.java:41)
+

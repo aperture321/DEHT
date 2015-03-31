@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: hashing.DataStorageTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0 sec <<< FAILURE! - in hashing.DataStorageTest
+testStoreData(hashing.DataStorageTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.DataStorageTest.testStoreData(DataStorageTest.java:11)
+
+testLoadData(hashing.DataStorageTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.RuntimeException: Not yet implemented
+	at hashing.DataStorageTest.testLoadData(DataStorageTest.java:16)
+
