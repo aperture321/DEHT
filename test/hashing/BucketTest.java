@@ -1,7 +1,10 @@
 package hashing;
 
 import static org.junit.Assert.*;
+
 import java.io.IOException;
+
+import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,21 +31,21 @@ public class BucketTest {
 
 	@Test
 	public void testDelete() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 
 	@Test
 	public void testContains() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 
 	@Test
 	public void testSearch() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 
 	@Test
 	public void testGetDepth() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 }

@@ -8,11 +8,11 @@ public class DataStorageTest {
 
 	@Test
 	public void testStoreData() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 
 	@Test
 	public void testLoadData() {
-		throw new RuntimeException("Not yet implemented");
+		fail();
 	}
 }
