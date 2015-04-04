@@ -253,47 +253,5 @@ public boolean collapse(){
 		return true;
 
 	}
-	
-	/**
-	 * Displays which cell references which bucket with what keys.
-	 * @throws IOException
-	 */
-	public void display()
-		throws IOException{
-		Bucket buck;
-		for(int i=0;i<bucketAddrs.length;i++){
-			buck=new Bucket(this,maxBucketKeys,bucketAddrs[i]);
-			buck.loadData(dataFile);
-			System.out.printf("Bucket %d (depth=%d) %s\n", i, 
-					buck.getDepth(), buck);
-		}
-		System.out.println();
-	}
-	//issues: does not redistribute the list of keys.
-	public static void plannedTest()
-		throws IOException{
-		int dataSet[]={0,7,15,31,3,2,4,8,16,5,13}; //remove 63 before 3
-		Index db=new Index("index","data",4);
-		for(int i=0;i<dataSet.length;i++){
-			System.out.println("\nInserting "+dataSet[i]);
-			db.insert(dataSet[i]);
-			db.display();
-		}
-		
-		for(int i=0;i<dataSet.length;i++){
-			System.out.println("\nDeleting "+dataSet[i]);
-			System.out.printf("depth=%d\n",db.getDepth());
-			db.delete(dataSet[i]);
-			db.display();
-		}
-		db.close();
-	}
-
-
-	public static void main(String args[])
-		throws IOException{
-		
-		plannedTest();
-	}
 
 }

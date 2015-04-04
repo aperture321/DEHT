@@ -126,5 +126,19 @@
   		<artifactId>easymock</artifactId>
   		<version>3.2</version>
   	</dependency>
+  	<dependency>
+    <groupId>swingRuntime</groupId>
+    <artifactId>swingRuntime</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/swingRuntime.jar</systemPath>
+  </dependency>
+  <dependency>
+    <groupId>commonRuntime</groupId>
+    <artifactId>commonRuntime</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/commonRuntime.jar</systemPath>
+  </dependency>
   </dependencies>
 </project>

@@ -28,6 +28,14 @@ public class IndexTest {
 		assertEquals("Test getting depth",0,testIndex.getDepth());
 		assertTrue("Test finding key after insert",testIndex.contains(0));
 	}
+	
+	@Test
+	public void testInsertDuplicate() throws IOException {
+		testIndex.insert(0);
+		testIndex.insert(0);
+		assertEquals("Test getting depth",0,testIndex.getDepth());
+		assertTrue("Test finding key after insert",testIndex.contains(0));
+	}
 
 	@Test
 	public void testStoreBucket() throws IOException {
@@ -44,6 +52,15 @@ public class IndexTest {
 	public void testDelete() throws IOException {
 		testIndex.insert(4);
 		assertTrue(testIndex.contains(4));
+		testIndex.delete(4);
+		assertFalse(testIndex.contains(4));
+	}
+	
+	@Test
+	public void testDeleteDuplicate() throws IOException {
+		testIndex.insert(4);
+		assertTrue(testIndex.contains(4));
+		testIndex.delete(4);
 		testIndex.delete(4);
 		assertFalse(testIndex.contains(4));
 	}
@@ -75,6 +92,14 @@ public class IndexTest {
 		testIndex.getBucketAddr(1);
 		assertTrue(testIndex.collapse());
 	}
+	@Test
+	public void testCollapseNothingToCollapse() throws IOException {
+		assertFalse(testIndex.collapse());
+	}
 
+	@Test
+	public void testClose() throws IOException {
+		testIndex.close();
+	}
 
 }

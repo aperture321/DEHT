@@ -1,22 +1,28 @@
 package hashing;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
+import java.awt.Choice;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import hashing.Index;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+import java.awt.TextArea;
 public class HashingApplication {
 
 	private JFrame frame;
-
+	private final Action action = new SwingAction();
 	/**
 	 * Launch the application.
 	 */
@@ -35,15 +41,18 @@ public class HashingApplication {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public HashingApplication() {
+	public HashingApplication() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
+		final Index indexer = new Index("indexTest2","dataTest2",4);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,8 +69,8 @@ public class HashingApplication {
 		JSplitPane splitPane_3 = new JSplitPane();
 		splitPane_1.setLeftComponent(splitPane_3);
 		
-		JTextPane textPane = new JTextPane();
-		splitPane_3.setRightComponent(textPane);
+		final JTextPane textPane_add = new JTextPane();
+		splitPane_3.setRightComponent(textPane_add);
 		
 		JLabel lblAddNumber = new JLabel("Add Number");
 		splitPane_3.setLeftComponent(lblAddNumber);
@@ -78,8 +87,8 @@ public class HashingApplication {
 		JSplitPane splitPane_7 = new JSplitPane();
 		splitPane_5.setLeftComponent(splitPane_7);
 		
-		JTextPane textPane_2 = new JTextPane();
-		splitPane_7.setRightComponent(textPane_2);
+		final JTextPane textPane_remove = new JTextPane();
+		splitPane_7.setRightComponent(textPane_remove);
 		
 		JLabel lblNewLabel_1 = new JLabel("Remove Number");
 		splitPane_7.setLeftComponent(lblNewLabel_1);
@@ -94,31 +103,93 @@ public class HashingApplication {
 		JButton btnApply = new JButton("Apply");
 		splitPane_8.setLeftComponent(btnApply);
 		
-		JLabel label = new JLabel("");
+		final TextArea label = new TextArea();
+		label.setEditable(false);
 		splitPane_8.setRightComponent(label);
 		splitPane_8.setDividerLocation(180);
 		
 		JSplitPane splitPane_6 = new JSplitPane();
 		splitPane_4.setLeftComponent(splitPane_6);
 		
-		JTextPane textPane_1 = new JTextPane();
-		splitPane_6.setRightComponent(textPane_1);
+		final JTextPane textPane_find = new JTextPane();
+		splitPane_6.setRightComponent(textPane_find);
 		
 		JLabel lblNewLabel = new JLabel("Find Number");
 		splitPane_6.setLeftComponent(lblNewLabel);
 		splitPane_6.setDividerLocation(180);
 		
-		JSplitPane splitPane_2 = new JSplitPane();
-		splitPane.setLeftComponent(splitPane_2);
+		Choice choice = new Choice();
+		choice.add("Local");
+		choice.add("Zookeeper");
+		splitPane.setLeftComponent(choice);
 		
-		JRadioButton rdbtnZookeeper = new JRadioButton("Zookeeper");
-		splitPane_2.setRightComponent(rdbtnZookeeper);
-		
-		JRadioButton rdbtnLocal = new JRadioButton("Local");
-		rdbtnLocal.setHorizontalAlignment(SwingConstants.TRAILING);
-		rdbtnLocal.setSelected(true);
-		splitPane_2.setLeftComponent(rdbtnLocal);
-		splitPane_2.setDividerLocation(180);
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				label.setText("");
+				if(!textPane_add.getText().isEmpty()) {
+					label.setText(label.getText() + "Adding number:");
+					try {
+						label.setText(label.getText() + Add(textPane_add.getText()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				if(!textPane_remove.getText().isEmpty()) {
+					label.setText(label.getText() + "Removing number:");
+					try {
+						label.setText(label.getText() + Remove(textPane_remove.getText()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				if(!textPane_find.getText().isEmpty()) {
+					label.setText(label.getText() + "Finding number:");
+					try {
+						label.setText(label.getText() + Find(textPane_find.getText()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+
+			private String Add(String text) throws IOException {
+				int number;
+				try {
+					number = Integer.parseInt(text);
+				} catch (NumberFormatException e ) {
+					return "ERROR: Number not formatted correctly.\n";
+				}
+				indexer.insert(number);
+				return "Success.\n";
+			}
+			private String Remove(String text) throws IOException {
+				int number;
+				try {
+					number = Integer.parseInt(text);
+				} catch (NumberFormatException e ) {
+					return "ERROR: Number not formatted correctly.\n";
+				}
+				indexer.delete(number);
+				return "Success.\n";
+			}
+			private String Find(String text) throws IOException {
+				int number;
+				try {
+					number = Integer.parseInt(text);
+				} catch (NumberFormatException e ) {
+					return "ERROR: Number not formatted correctly.\n";
+				}
+				return (indexer.contains(number)) ? "Found.\n" : "Not Found";
+			}
+		});
 	}
 
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
 }
