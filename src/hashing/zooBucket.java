@@ -81,12 +81,39 @@ public class zooBucket implements Serializable {
 		
 		System.out.println("Save: " + this.toString());
 		
-		zk.setData("/zookeeper/buck--" + this.bucketAddr, this);
+		zk.setData("/zookeeper/buck--" + findMyIndex() + "/" + this.bucketAddr, this);
 		try {
 			zk.zooKeeper.close();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Given a hash key, finds its corresponding index.
+	 * 
+	 * @param key
+	 *            hash key
+	 * @return index position
+	 */
+	public int findMyIndex() {
+		
+		int key = this.keys[0];
+		
+		if (depth == 0) {
+			return 0;
+		} else {
+			int result = 0;
+			int lowest = 0;
+			int mask = 1;
+			for (int i = 0; i < depth; i++) {
+				lowest = key & mask;
+				result = result << 1;
+				result = result | lowest;
+				key = key >> 1;
+			}
+			return result;
 		}
 	}
 
@@ -169,7 +196,7 @@ public class zooBucket implements Serializable {
 		
 		zooKeeper zk = new zooKeeper();
 		zooBucket loadBuck = 
-				(zooBucket) zk.getData("/zookeeper/buck--" + this.bucketAddr);
+				(zooBucket) zk.getData("/zookeeper/buck--" + findMyIndex() + "/" + this.bucketAddr);
 
 		this.numKeys = loadBuck.numKeys;
 		this.depth = loadBuck.depth;

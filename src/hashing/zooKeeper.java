@@ -41,8 +41,8 @@ java.util.concurrent.CountDownLatch connectedSignal = new java.util.concurrent.C
 	}
 
 
-	void createData(Object data, String location){
-		String locationOnServer ="/zookeeper/" + location;
+	void createData(String location, Object data){
+		String locationOnServer =location;
 		try {
 			zooKeeper.create(locationOnServer, serialize(data), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 		} catch (KeeperException e) {
