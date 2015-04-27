@@ -81,7 +81,7 @@ public class zooBucket implements Serializable {
 		
 		System.out.println("Save: " + this.toString());
 		
-		zk.setData("/zookeeper/buck--" + findMyIndex() + "/" + this.bucketAddr, this);
+		zk.setData("/zookeeper/buck--" + this.bucketAddr + "-" + this.bucketAddr, this);
 		try {
 			zk.zooKeeper.close();
 		} catch (InterruptedException e) {
@@ -196,8 +196,12 @@ public class zooBucket implements Serializable {
 		
 		zooKeeper zk = new zooKeeper();
 		zooBucket loadBuck = 
-				(zooBucket) zk.getData("/zookeeper/buck--" + findMyIndex() + "/" + this.bucketAddr);
-
+				(zooBucket) zk.getData("/zookeeper/buck--" + this.bucketAddr + "-" + this.bucketAddr);
+		
+		if (loadBuck == null)
+			zk.createData("/zookeeper/buck--" + this.bucketAddr + "-" + this.bucketAddr, this);
+		
+		
 		this.numKeys = loadBuck.numKeys;
 		this.depth = loadBuck.depth;
 		for(int i = 0; i < this.numKeys; i++) { //grab every key.
@@ -300,7 +304,7 @@ public class zooBucket implements Serializable {
 		int amount_of_points = (int) Math.pow(2, x); //how many index cells point to this bucket.
 		
 		//We need to make a new bucket.
-		zooBucket newbuck = new zooBucket(index, maxNumKeys, index.getFilePointer().length());
+		zooBucket newbuck = new zooBucket(index, maxNumKeys, index.getFilePointer()/*.length()*/);
 		newbuck.depth = depth;
 		
 		index.storeBucket(newbuck); //bucket needs to be saved immediately upon being made. This will assign our bucket address to file.

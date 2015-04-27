@@ -208,8 +208,9 @@ public class zooIndex implements Serializable {
 		}
 	}
 
-	public RandomAccessFile getFilePointer() {
-		return dataFile;
+	public /*RandomAccessFile*/long getFilePointer() {
+		//return dataFile;
+		return this.bucketAddrs.length;
 	}
 
 	public long getBucketAddr(int indexPos) {
