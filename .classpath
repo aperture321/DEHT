@@ -23,10 +23,13 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/tjtur_000/workspace/Guo_Hash/commonRuntime.jar"/>
-	<classpathentry kind="lib" path="C:/Users/tjtur_000/workspace/Guo_Hash/swingRuntime.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dominic/OneDrive/My Documents/GitHub/DEHT/commonRuntime.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dominic/OneDrive/My Documents/GitHub/DEHT/swingRuntime.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Thomas"/>
 	<classpathentry kind="con" path="com.windowtester.eclipse.ui.runtimeClasspathContainer"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
+	<classpathentry kind="lib" path="C:/Users/Dominic/OneDrive/My Documents/GitHub/DEHT/zookeeper-3.4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dominic/OneDrive/My Documents/GitHub/DEHT/slf4j-api-1.7.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dominic/OneDrive/My Documents/GitHub/DEHT/slf4j-nop-1.7.12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

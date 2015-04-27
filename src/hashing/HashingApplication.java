@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 
 import hashing.Index;
 
@@ -18,11 +19,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+
 import java.awt.TextArea;
-public class HashingApplication {
+public class HashingApplication implements Serializable{
 
 	private JFrame frame;
 	private final Action action = new SwingAction();
+	Choice choice = new Choice();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +57,7 @@ public class HashingApplication {
 	 */
 	private void initialize() throws IOException {
 		final Index indexer = new Index("indexTest2","dataTest2",4);
+		final zooIndex zindexer = new zooIndex("indexTest", "dataTest", 4);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,7 +123,7 @@ public class HashingApplication {
 		splitPane_6.setLeftComponent(lblNewLabel);
 		splitPane_6.setDividerLocation(180);
 		
-		Choice choice = new Choice();
+		//old choice code
 		choice.add("Local");
 		choice.add("Zookeeper");
 		splitPane.setLeftComponent(choice);
@@ -159,7 +164,10 @@ public class HashingApplication {
 				} catch (NumberFormatException e ) {
 					return "ERROR: Number not formatted correctly.\n";
 				}
-				indexer.insert(number);
+				if (choice.getSelectedIndex() == 0)
+					indexer.insert(number);
+				else if (choice.getSelectedIndex() == 1)
+					zindexer.insert(number);
 				return "Success.\n";
 			}
 			private String Remove(String text) throws IOException {
@@ -169,7 +177,10 @@ public class HashingApplication {
 				} catch (NumberFormatException e ) {
 					return "ERROR: Number not formatted correctly.\n";
 				}
-				indexer.delete(number);
+				if (choice.getSelectedIndex() == 0)
+					indexer.delete(number);
+				else if (choice.getSelectedIndex() == 1)
+					zindexer.delete(number);
 				return "Success.\n";
 			}
 			private String Find(String text) throws IOException {
@@ -179,9 +190,17 @@ public class HashingApplication {
 				} catch (NumberFormatException e ) {
 					return "ERROR: Number not formatted correctly.\n";
 				}
-				return (indexer.contains(number)) ? "Found.\n" : "Not Found";
+				if (choice.getSelectedIndex() == 0)
+					return (indexer.contains(number)) ? "Found.\n" : "Not Found";
+				if (choice.getSelectedIndex() == 1)
+					return (zindexer.contains(number)) ? "Found.\n" : "Not Found";
+				return "Selected command invalid.";
 			}
 		});
+	}
+	
+	public int getChoiceIndex(){
+		return choice.getSelectedIndex();
 	}
 
 	private class SwingAction extends AbstractAction {
